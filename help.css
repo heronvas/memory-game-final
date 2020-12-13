@@ -1,0 +1,160 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: rgb(95, 91, 100);
+    position: relative;
+
+
+}
+.row {
+    display: flex;
+    
+    flex-direction: row;
+    
+}
+.column1 {
+    width: 60%;
+
+
+}
+.column2 {
+    width: 40%;
+    
+    }
+.animation{
+
+
+    position: absolute;
+    top: 8px;
+    
+
+
+}
+li,p 
+{
+    font-size: 16px;
+    font-family: 'Poor Story', cursive;
+
+}
+.heading{
+    text-align: center;
+    padding-right: 2cm;
+    font-family: 'Amaranth', sans-serif;
+
+}
+h1
+{
+    font-size: 30px;
+}
+.p1
+{
+        font-size: 20px;
+        font-weight: bold;
+}
+
+.rules{
+    padding-left: 0.5cm;
+    font-family: 'Poor Story', cursive;
+    color: rgb(35, 34, 37);
+
+}
+
+#question_mark{
+
+    animation: question 1s ease infinite;
+
+}
+
+@keyframes question{
+    from{
+       transform: rotateX(0deg);
+    }
+
+    to{
+        transform: rotateX(40deg);
+    }
+}
+
+#womens_hand{
+
+    animation: women 1s ease infinite;
+    transform-origin: center;
+}
+
+@keyframes women{
+    from{
+       transform: rotateX(0deg);
+    }
+
+    to{
+        transform: rotateX(40deg);
+    }
+}
+
+#mans_hand{
+
+    animation: man 1s ease infinite;
+    transform-origin: center;
+}
+
+@keyframes man{
+    from{
+       transform: rotateY(0deg);
+    }
+
+    to{
+        transform: rotateY(28deg);
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .animation svg{
+        width: 200px;
+        height: 200px;
+    }
+    .column1{
+        width: 40%;
+    }
+    .column2{
+        width: 60%;
+    }
+    li,p
+    {
+        font-size: 10px;
+    }
+    .p1{
+        font-size: 15px;
+    }
+    .animation{
+        top: 1px;
+    }
+
+}
+
+@media screen and (min-width: 375px) and (max-width: 510px) {
+    .animation svg{
+        width: 250px;
+        height: 200px;
+    }
+    .column1{
+        width: 40%;
+    }
+    .column2{
+        width: 60%;
+    }
+    li,p
+    {
+        font-size: 10px;
+    }
+    .p1{
+        font-size: 15px;
+    }
+    .animation{
+        top: 1px;
+    }
+
+}
+
+
+

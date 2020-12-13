@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Menu</title>
+	<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-auth.js"></script>
+
+	<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+	<link rel="stylesheet" href="menu.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&family=Salsa&display=swap" rel="stylesheet">
+
+    
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+	<script type="text/javascript">
+	var firebaseConfig = {
+    apiKey: "AIzaSyAwv9W0rhdWPl5RxRJLSvUTa2Mczt31zf8",
+    authDomain: "register-5d2dc.firebaseapp.com",
+    databaseURL: "https://register-5d2dc.firebaseio.com",
+    projectId: "register-5d2dc",
+    storageBucket: "register-5d2dc.appspot.com",
+    messagingSenderId: "96588430685",
+    appId: "1:96588430685:web:518cbff58205dc490e3cb4",
+    measurementId: "G-FQTTHNJ50R"
+  };
+  // Initialize Firebase
+  
+	$(document).ready(function(){
+		$("form").submit(function(event){
+			event.preventDefault();
+
+			var name = $("#myname").val();
+			var msg = $("#suggestion").val();
+			var btn = $("#send").val();
+			$(".form-msg").load("correct.php", {
+				name:name,
+				msg:msg,
+				btn:btn
+			});
+ 
+		});
+	});
+
+</script>
+
+</head>
+
+<body>
+
+	
+
+
+<div class="heading">
+
+	<div class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <form >
+
+	<h4>name</h4>
+	<input id="myname" type="text" name="name" value="hello">
+	<h4>Any suggestions</h4>
+	<textarea id="suggestion"  type="text" name="message" placeholder="message"></textarea>
+	<br>
+	<h4>Please Rate us</h4>
+	<p class="clasificacion">
+       <input id="radio1" type="radio" name="estrellas" value="5"><!--
+      --><label for="radio1">&#9733;</label><!--
+      --><input id="radio2" type="radio" name="estrellas" value="4"><!--
+      --><label for="radio2">&#9733;</label><!--
+      --><input id="radio3" type="radio" name="estrellas" value="3"><!--
+      --><label for="radio3">&#9733;</label><!--
+      --><input id="radio4" type="radio" name="estrellas" value="2"><!--
+      --><label for="radio4">&#9733;</label><!--
+      --><input id="radio5" type="radio" name="estrellas" value="1"><!--
+      --><label for="radio5">&#9733;</label>
+    </p>
+
+	
+
+	<button id="send" type="submit" name="submit" onclick="uncheckAll(this.form)"> Submit</button>
+
+	<p class="form-msg"></p>
+
+</form>
+
+
+
+        </div>
+    </div>
+        <h1>THE MEMORY GAME!</h1>
+        <p>Click <a href="help.html">here</a> to know about the game</p>
+</div>
+    
+<div class="item-center">
+  <div class="one" id="start" onclick="start_game()">START</div>
+  <div class="two" onclick="start_leaderboard()">LEADERBOARD</div>
+  <div class="three">FEEDBACK</div>
+</div>
+<div class="logout">
+	<p onclick="signout()">Click here to Logout<p>
+</div>
+
+</body>
+<script src="menu.js"></script>
+
+<script type="text/javascript">
+	var modal = document.querySelector(".modal");
+    var trigger = document.querySelector(".three");
+    var closeButton = document.querySelector(".close-button");
+    var warning = document.querySelector(".form-msg");
+    const star1 = document.querySelector("#radio1");
+    const star2 = document.querySelector("#radio2");
+    const star3 = document.querySelector("#radio3");
+    const star4 = document.querySelector("#radio4");
+    const star5 = document.querySelector("#radio5");
+    var change = document.querySelector("#send");
+    var userid, snapVal, username;
+
+    let val = 0;
+
+
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+       userid =String(user.uid);
+       console.log(userid);
+       const database = firebase.database().ref("register/" + userid);
+
+database.on("value", snapshot => {
+	snapVal = snapshot.val();
+      console.log(snapVal.name);
+      username = snapVal.name;
+      console.log(username);
+      document.querySelector("#myname").value = username;
+       
+}); 
+}
+ });
+
+
+
+
+
+
+    function toggleModal() {
+        modal.classList.toggle("show-modal");
+        document.querySelector(".item-center").style.visibility = "hidden";
+        $("#myname, #suggestion").val("");
+        $("#myname, #suggestion").removeClass("input-error");
+        warning.innerHTML = "";
+        document.querySelector("#myname").value = username;
+
+        star1.checked = false;
+		star2.checked = false;
+		star3.checked = false;
+		star4.checked = false;
+		star5.checked = false;
+    }
+
+    function close(){
+    	modal.classList.toggle("show-modal");
+    	document.querySelector(".item-center").style.visibility = "visible";
+    }
+
+    function windowOnClick(event) {
+        if (event.target === modal) {
+            toggleModal();
+            document.querySelector(".item-center").style.visibility = "visible";
+
+        }
+    }
+
+    function val1(){
+    	val = 5;
+    	
+    }
+
+    function val2(){
+    	val = 4;
+    	
+    }
+    function val3(){
+    	val = 3;
+    	
+    }
+    function val4(){
+    	val = 2;
+    	
+    }
+    function val5(){
+    	val = 1;
+    	
+    }
+
+    function uncheckAll(f)
+	{
+	for (x=0;x<f.elements.length;x++)
+    {
+    if (f.elements[x].type == "radio")
+    {
+    f.elements[x].checked = false; 
+    }
+    }
+	}
+
+	function stay(){
+		document.querySelector("#myname").value = username;
+	}
+
+
+
+    star1.addEventListener("click", val1);
+    star2.addEventListener("click", val2);
+    star3.addEventListener("click", val3);
+    star4.addEventListener("click", val4);
+    star5.addEventListener("click", val5);
+
+    change.addEventListener("click", stay);
+    trigger.addEventListener("click", toggleModal);
+    closeButton.addEventListener("click", close);
+    window.addEventListener("click", windowOnClick);
+	
+</script>
+
+</html>
